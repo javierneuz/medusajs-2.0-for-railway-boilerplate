@@ -1,18 +1,28 @@
 "use client"
 
 import { InstantSearch } from "react-instantsearch-hooks-web"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { MagnifyingGlassMini } from "@medusajs/icons"
 
 import { SEARCH_INDEX_NAME, searchClient } from "@lib/search-client"
 import Hit from "@modules/search/components/hit"
 import Hits from "@modules/search/components/hits"
 import SearchBox from "@modules/search/components/search-box"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function SearchModal() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const searchRef = useRef(null)
+  const [initialQuery, setInitialQuery] = useState("")
+
+  // Obtener el parámetro de búsqueda de la URL
+  useEffect(() => {
+    const query = searchParams.get("q")
+    if (query) {
+      setInitialQuery(query)
+    }
+  }, [searchParams])
 
   // close modal on outside click
   const handleOutsideClick = (event: MouseEvent) => {
@@ -62,6 +72,11 @@ export default function SearchModal() {
           <InstantSearch
             indexName={SEARCH_INDEX_NAME}
             searchClient={searchClient}
+            initialUiState={{
+              [SEARCH_INDEX_NAME]: {
+                query: initialQuery,
+              },
+            }}
           >
             <div
               className="flex absolute flex-col h-fit w-full sm:w-fit"

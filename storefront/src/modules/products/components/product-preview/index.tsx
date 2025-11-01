@@ -31,19 +31,40 @@ export default async function ProductPreview({
 
   return (
     <LocalizedClientLink href={`/products/${product.handle}`} className="group">
-      <div data-testid="product-wrapper">
-        <Thumbnail
-          thumbnail={product.thumbnail}
-          images={product.images}
-          size="full"
-          isFeatured={isFeatured}
-        />
-        <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle" data-testid="product-title">
+      <div data-testid="product-wrapper" className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 h-full flex flex-col">
+        <div className="relative">
+          <Thumbnail
+            thumbnail={product.thumbnail}
+            images={product.images}
+            size="full"
+            isFeatured={isFeatured}
+          />
+          {/* Badge de descuento simulado */}
+          {Math.random() > 0.5 && (
+            <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded-md text-xs font-bold">
+              {Math.floor(Math.random() * 30 + 10)}% OFF
+            </div>
+          )}
+          {/* Badge de envío gratis */}
+          {Math.random() > 0.6 && (
+            <div className="absolute top-2 right-2 bg-green-600 text-white px-2 py-1 rounded-md text-xs font-semibold">
+              Envío gratis
+            </div>
+          )}
+        </div>
+        <div className="p-4 flex flex-col flex-grow">
+          <Text className="text-sm text-gray-600 mb-2 line-clamp-2 flex-grow" data-testid="product-title">
             {product.title}
           </Text>
-          <div className="flex items-center gap-x-2">
-            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+          <div className="mt-auto">
+            {cheapestPrice && (
+              <div className="flex flex-col gap-1">
+                <PreviewPrice price={cheapestPrice} />
+                <p className="text-xs text-green-600 font-semibold">
+                  ¡Último disponible!
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

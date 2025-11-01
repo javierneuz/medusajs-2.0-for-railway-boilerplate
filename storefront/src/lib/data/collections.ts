@@ -30,7 +30,10 @@ export const getCollectionsWithProducts = cache(
   async (countryCode: string): Promise<HttpTypes.StoreCollection[] | null> => {
     const { collections } = await getCollectionsList(0, 3)
 
-    if (!collections) {
+    console.log("📦 Colecciones obtenidas:", collections?.length || 0)
+
+    if (!collections || collections.length === 0) {
+      console.log("⚠️ No hay colecciones disponibles")
       return null
     }
 
@@ -38,10 +41,17 @@ export const getCollectionsWithProducts = cache(
       .map((collection) => collection.id)
       .filter(Boolean) as string[]
 
+    console.log("🔍 IDs de colecciones:", collectionIds)
+
     const { response } = await getProductsList({
-      queryParams: { collection_id: collectionIds },
+      queryParams: { 
+        collection_id: collectionIds,
+        limit: 100 // Aumentar límite para obtener más productos
+      } as any,
       countryCode,
     })
+
+    console.log("📦 Productos obtenidos:", response.products.length)
 
     response.products.forEach((product) => {
       const collection = collections.find(
@@ -55,6 +65,11 @@ export const getCollectionsWithProducts = cache(
 
         collection.products.push(product as any)
       }
+    })
+
+    // Log de productos por colección
+    collections.forEach((collection) => {
+      console.log(`📂 ${collection.title}: ${collection.products?.length || 0} productos`)
     })
 
     return collections as unknown as HttpTypes.StoreCollection[]
