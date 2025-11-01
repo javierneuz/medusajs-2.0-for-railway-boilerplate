@@ -59,11 +59,13 @@ const medusaConfig = {
             resolve: './src/modules/minio-file',
             id: 'minio',
             options: {
-              endPoint: MINIO_ENDPOINT,
-              accessKey: MINIO_ACCESS_KEY,
-              secretKey: MINIO_SECRET_KEY,
-              bucket: MINIO_BUCKET // Optional, default: medusa-media
-            }
+      endPoint: MINIO_ENDPOINT?.split(':')[0] || 'localhost',
+      port: parseInt(MINIO_ENDPOINT?.split(':')[1] || '9000'),
+      useSSL: false,
+      accessKey: MINIO_ACCESS_KEY,
+      secretKey: MINIO_SECRET_KEY,
+      bucket: MINIO_BUCKET || 'medusa-media'
+    }
           }] : [{
             resolve: '@medusajs/file-local',
             id: 'local',
