@@ -21,8 +21,8 @@ export default function ProductRail({
     <div className="content-container py-8 small:py-12">
       <div className="flex justify-between items-center mb-6 pb-4 border-b-2 border-gray-200">
         <div>
-          <Text className="text-2xl font-bold text-gray-800">{collection.title}</Text>
-          <Text className="text-sm text-gray-600 mt-1">Los mejores productos seleccionados para ti</Text>
+          <Text className="text-2xl mb-1">Bienestar que te acompaña</Text>
+          <Text className="text-3xl font-bold text-gray-800">{collection.title}</Text>
         </div>
         <InteractiveLink href={`/collections/${collection.handle}`}>
           <span className="text-blue-600 hover:text-blue-700 font-semibold">Ver todos →</span>

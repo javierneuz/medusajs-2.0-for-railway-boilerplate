@@ -31,7 +31,7 @@ export default async function ProductPreview({
 
   return (
     <LocalizedClientLink href={`/products/${product.handle}`} className="group">
-      <div data-testid="product-wrapper" className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 h-full flex flex-col">
+      <div data-testid="product-wrapper" className="rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 h-full flex flex-col">
         <div className="relative">
           <Thumbnail
             thumbnail={product.thumbnail}
@@ -39,6 +39,8 @@ export default async function ProductPreview({
             size="full"
             isFeatured={isFeatured}
           />
+
+          
           {/* Badge de descuento simulado */}
           {Math.random() > 0.5 && (
             <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded-md text-xs font-bold">

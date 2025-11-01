@@ -47,9 +47,9 @@ export default async function Home({
 
   return (
     <>
-      <Hero />
-      
       <PromoBanner />
+
+      <Hero />
       
       {/* Ofertas Relámpago */}
       <div className="bg-white py-4">

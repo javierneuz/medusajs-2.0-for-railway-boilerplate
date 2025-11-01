@@ -24,8 +24,8 @@ const PromoBanner = () => {
   ]
 
   return (
-    <div className="content-container py-4">
-      <div className="relative overflow-hidden rounded-xl shadow-lg">
+    <div className="py-4">
+      <div className="relative overflow-hidden">
         <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
           {promos.map((promo, index) => (
             <div
